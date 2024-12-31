@@ -4,6 +4,7 @@ const {body} = require("express-validator");
 const driverModel = require("../models/driver.model");
 const authUser = require("../middlewares/auth.middleware");
 const driverController = require("../controllers/driver.controller");
+const blacklistModel = require("../models/blacklist.model");
 
 router.post("/register",
     [
@@ -22,4 +23,14 @@ router.post("/register",
     driverController.registerDriver   
 )
 
+router.post("/login",
+    [
+        body("email").isEmail().withMessage("Please enter a valid email"),
+        body("password").isLength({min:4}).withMessage("Password should be at least 4 characters long")
+    ],
+    driverController.loginDriver
+)
+
+router.get("/profile",authUser.authDriver,driverController.getDriverProfile);
+router.get("/logout",authUser.authDriver,driverController.logOutDriver);
 module.exports = router;
