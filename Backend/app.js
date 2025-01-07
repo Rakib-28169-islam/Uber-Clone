@@ -6,6 +6,7 @@ const express = require("express");
 const connectDB = require("./db/db");
 const userRoutes = require("./routes/user.routes");
 const driverRoutes = require("./routes/driver.routes");
+const mapRoutes = require("./routes/map.routes");
 const cookieParser = require("cookie-parser");
 const app = express();
 
@@ -22,6 +23,7 @@ app.get("/",(req,res)=>{
 })
 app.use("/users",userRoutes);
 app.use("/drivers",driverRoutes);
+app.use("/map",mapRoutes);
 
 
 module.exports = app;
