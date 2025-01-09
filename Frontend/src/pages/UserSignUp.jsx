@@ -1,7 +1,8 @@
 import  { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-//import axios from 'axios'
-//import { UserDataContext } from '../context/UserContext'
+import { UserDataContext } from '../context/userContext'
+import axios from 'axios'
+
 
 
 
@@ -12,33 +13,55 @@ const UserSignup = () => {
   const [ lastName, setLastName ] = useState('')
   const [ userData, setUserData ] = useState({})
 
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
 
 
 
-  //const { user, setUser } = useContext(UserDataContext)
+  const { user, setUser } = useContext(UserDataContext)
+  //console.log(user)
 
 
 
 
   const submitHandler = async (e) => {
     e.preventDefault()
-    
+
     const newUser = {
-      fullname: {
-        firstname: firstName,
-        lastname: lastName
+      fullName: {
+        fName: firstName,
+        lName: lastName
       },
       email: email,
       password: password
     }
 
-    setUserData(newUser)
-    console.log(newUser)
-    setEmail('')
-    setFirstName('')
-    setLastName('')
-    setPassword('')
+    try{
+        const response = await axios.post(`http://192.168.1.109:4000/users/register`, newUser)
+    //console.log(response.data.user)
+    
+    const data = response.data.user
+
+    await setUser({
+        email: data.email,
+        fullName:{
+            fName: data.fullName.fName,
+            lName: data.fullName.lName
+        }
+    });
+    localStorage.setItem("token", response.data.token);
+    navigate('/home');
+    }catch(err){
+        console.log(err)
+    }
+    
+
+
+    
+    //console.log(newUser)
+    // setEmail('')
+    // setFirstName('')
+    // setLastName('')
+    // setPassword('')
 
   }
   return (
