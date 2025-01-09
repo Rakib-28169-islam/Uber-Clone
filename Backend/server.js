@@ -3,6 +3,6 @@ const app = require('./app');
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
-server.listen(port,()=>{
+server.listen(port,"0.0.0.0",()=>{
     console.log(`Server running on port ${port}`);
 });

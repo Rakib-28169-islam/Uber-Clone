@@ -13,6 +13,9 @@ const app = express();
 
 connectDB();
 app.use(cors());
+// app.use(cors({
+//     origin: "http://192.168.1.109:5173", // Replace with your Vite server's address
+//   }));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
