@@ -20,13 +20,13 @@ const driverSchema = new mongoose.Schema({
         unique:true,
         match:[/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,"Please enter a valid email"],
     },
-    phone:{
-        type:String,
-        required:true,
-        unique:true,
-        minLength:[10,"Phone number should be at least 10 characters long"],
-        maxLength:[10,"Phone number should be at most 10 characters long"]  
-    },
+    // phone:{
+    //     type:String,
+    //     required:true,
+    //     unique:true,
+    //     minLength:[10,"Phone number should be at least 10 characters long"],
+    //     maxLength:[10,"Phone number should be at most 10 characters long"]  
+    // },
     password:{
         type:String,
         required:true,
@@ -61,7 +61,7 @@ const driverSchema = new mongoose.Schema({
         vehicleType:{
             type:String,
             required:true,
-            enum:["Car","Motorcycle","Auto"],
+            enum:["car","moto","auto"],
 
         }
     },

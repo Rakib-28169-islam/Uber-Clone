@@ -1,7 +1,6 @@
 const dotenv = require("dotenv");
-dotenv.config();
-
 const cors = require('cors');
+dotenv.config();
 const express = require("express");
 const connectDB = require("./db/db");
 const userRoutes = require("./routes/user.routes");
@@ -10,9 +9,17 @@ const mapRoutes = require("./routes/map.routes");
 const rideRoutes = require("./routes/ride.routes");
 const cookieParser = require("cookie-parser");
 const app = express();
-
-connectDB();
 app.use(cors());
+connectDB();
+// Use CORS Middleware
+// app.use(
+//     cors({
+//       origin: "http://192.168.1.109:5173", // Your Vite development server
+//       methods: ["GET", "POST", "PUT", "DELETE"], // HTTP methods allowed
+//       credentials: true, // If using cookies or authentication headers
+//     })
+//   );
+
 // app.use(cors({
 //     origin: "http://192.168.1.109:5173", // Replace with your Vite server's address
 //   }));

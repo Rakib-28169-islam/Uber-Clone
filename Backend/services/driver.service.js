@@ -5,7 +5,7 @@ module.exports.createDriver = async({fullName,email,password,phone,vehicle})=>{
     const {fName,lName} = fullName;
     const {name,model,color,plate,capacity,vehicleType} = vehicle;
    
-    if(!fName  || !email || !password || !phone || !name || !color || !plate || !capacity || !vehicleType)
+    if(!fName  || !email || !password || !name || !color || !plate || !capacity || !vehicleType)
     {
         throw new Error("All fields are required");
     }
