@@ -36,7 +36,7 @@ const UserSignup = () => {
     }
 
     try{
-        const response = await axios.post(`http://192.168.1.109:4000/users/register`, newUser)
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
     //console.log(response.data.user)
     
     const data = response.data.user
@@ -49,7 +49,7 @@ const UserSignup = () => {
         }
     });
     localStorage.setItem("token", response.data.token);
-    navigate('/home');
+    navigate('/user-home');
     }catch(err){
         console.log(err)
     }

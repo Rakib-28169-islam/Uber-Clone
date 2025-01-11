@@ -7,7 +7,9 @@ import UserLogin from "./pages/userLogin";
 import DriverSignUp from "./pages/DriverSignUp";
 import DriverLogin from "./pages/DriverLogin";
 import Home from "./pages/Home";
-import ProtectPage from "./pages/ProtectPage";
+import ProtectUserPage from "./pages/ProtectUserPage";
+import ProtectDriverPage from "./pages/ProtectDriverPage";
+//import ProtectPage from "./pages/ProtectUserPage";
 
 const App = () => {
   return (
@@ -19,11 +21,19 @@ const App = () => {
         <Route path="/driver-signup" element={<DriverSignUp />} />
         <Route path="/driver-login" element={<DriverLogin />} />
         <Route
-          path="/home"
+          path="/user-home"
           element={
-            <ProtectPage>
+            <ProtectUserPage>
               <Home />
-            </ProtectPage>
+            </ProtectUserPage>
+          }
+        />
+        <Route
+          path="/driver-home"
+          element={
+            <ProtectDriverPage>
+              <Home />
+            </ProtectDriverPage>
           }
         />
       </Routes>

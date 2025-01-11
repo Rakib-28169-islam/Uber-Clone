@@ -33,7 +33,7 @@ const UserLogin = () => {
         },
       });
       localStorage.setItem("token", response.data.token);
-      navigate("/home");
+      navigate("/user-home");
     } catch (err) {
       console.log(err);
     }

@@ -6,6 +6,7 @@ const stats = [
     { id: 3, name: 'New users annually', value: '46,000' },
   ]
   import { CheckIcon } from '@heroicons/react/20/solid'
+import UserLogout from './UserLogout';
 
 const tiers = [
 
@@ -45,6 +46,7 @@ const Home = () => {
     console.log(user)
     return (
         <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+          <UserLogout/>
           <div aria-hidden="true" className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl">
             <div
               style={{
