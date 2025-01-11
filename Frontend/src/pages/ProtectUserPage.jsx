@@ -21,7 +21,7 @@ const ProtectUserPage = ({ children }) => {
         })
         .then((res) => {
           setUser(res.data.user);
-          navigate("/home");
+          navigate("/user-home");
         })
         .catch((err) => {
           //console.log(err);
