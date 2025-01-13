@@ -9,6 +9,7 @@ import DriverLogin from "./pages/DriverLogin";
 import Home from "./pages/Home";
 import ProtectUserPage from "./pages/ProtectUserPage";
 import ProtectDriverPage from "./pages/ProtectDriverPage";
+import DriverHome from "./pages/DriverHome";
 //import ProtectPage from "./pages/ProtectUserPage";
 
 const App = () => {
@@ -32,7 +33,7 @@ const App = () => {
           path="/driver-home"
           element={
             <ProtectDriverPage>
-              <Home />
+              <DriverHome/>
             </ProtectDriverPage>
           }
         />

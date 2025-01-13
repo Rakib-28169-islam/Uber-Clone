@@ -6,6 +6,7 @@ import LocationSearchPanel from "../components/LocationSearchPanel";
 import VehiclePanel from "../components/vehiclePanel";
 import ConfirmRide from "../components/ConfirmRide";
 import WaitingDriver from "../components/WaitingDriver";
+const updateMapImage = 'https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif'
 const Home = () => {
   //ref
   const suggestionsPanel = useRef(null);
@@ -90,8 +91,12 @@ const Home = () => {
         className="w-screen h-screen "
       >
         <img
-          className="pt-48 border-5 cursor-pointer"
-          src="https://s.wsj.net/public/resources/images/BN-XR453_201802_M_20180228165619.gif"
+          className="pt-48 border-5 cursor-pointer "
+          src={
+            openWaitingDriverPanel?
+            updateMapImage:
+            `https://s.wsj.net/public/resources/images/BN-XR453_201802_M_20180228165619.gif`
+            }
           alt="map-image"
         />
       </div>
@@ -149,9 +154,10 @@ const Home = () => {
       </div>
       <div
         ref={confirmRideRef}
-        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-3"
       >
         <ConfirmRide
+          setOpenPanel={setOpenPanel}
           setOpenVehiclePanel={setOpenVehiclePanel}
           setOpenConfirmRidePanel={setOpenConfirmRidePanel}
           setOpenWaitingDriverPanel={setOpenWaitingDriverPanel}
@@ -160,7 +166,7 @@ const Home = () => {
 
       <div
         ref={waitingPanelRef}
-        className="fixed w-full  z-10 bottom-0  bg-white px-3 py-6 pt-12"
+        className="fixed w-full border z-10 bottom-0  bg-white px-3 py-6 pt-20"
       >
         <WaitingDriver
           setOpenWaitingDriverPanel={setOpenWaitingDriverPanel}  

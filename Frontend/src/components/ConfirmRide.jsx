@@ -44,6 +44,7 @@ const ConfirmRide = (props) => {
                 <button onClick={() => {
                     props.setOpenConfirmRidePanel(false)
                     props.setOpenWaitingDriverPanel(true)
+                    props.setOpenPanel(false)
                    
 
                 }} className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>Confirm</button>
