@@ -4,15 +4,21 @@ import { gsap } from "gsap";
 import "remixicon/fonts/remixicon.css";
 import LocationSearchPanel from "../components/LocationSearchPanel";
 import VehiclePanel from "../components/vehiclePanel";
+import ConfirmRide from "../components/ConfirmRide";
+import WaitingDriver from "../components/WaitingDriver";
 const Home = () => {
   //ref
   const suggestionsPanel = useRef(null);
   const vehiclePanelRef = useRef(null);
+  const confirmRideRef = useRef(null);
+  const waitingPanelRef = useRef(null);
 
   const [pickup, setPickup] = useState("");
   const [drop, setDrop] = useState("");
   const [openPanel, setOpenPanel] = useState(false);
   const [openVehiclePanel, setOpenVehiclePanel] = useState(false);
+  const [openConfirmRidePanel, setOpenConfirmRidePanel] = useState(false);
+  const [openWaitingDriverPanel, setOpenWaitingDriverPanel] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -44,6 +50,30 @@ const Home = () => {
     }
   }, [openVehiclePanel]);
 
+  useEffect(() => {
+    if (openConfirmRidePanel) {
+      gsap.to(confirmRideRef.current, {
+        transform: "translateY(0)",
+      });
+    } else {
+      gsap.to(confirmRideRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [openConfirmRidePanel]);
+
+  useEffect(() => {
+    if (openWaitingDriverPanel) {
+      gsap.to(waitingPanelRef.current, {
+        transform: "translateY(0)",
+      });
+    } else {
+      gsap.to(waitingPanelRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [openWaitingDriverPanel]);
+
   return (
     <div className="h-screen relative overflow-hidden">
       <img
@@ -51,15 +81,18 @@ const Home = () => {
         src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
         alt=""
       />
-      <div className="w-screen h-screen z-0">
+      <div
+        onClick={() => {
+          setOpenPanel(false);
+          setOpenVehiclePanel(false);
+          console.log(openPanel, openVehiclePanel);
+        }}
+        className="w-screen h-screen "
+      >
         <img
-          onClick={() => {
-            setOpenPanel(true);
-            setOpenVehiclePanel(false);
-          }}
-          className="pt-48"
+          className="pt-48 border-5 cursor-pointer"
           src="https://s.wsj.net/public/resources/images/BN-XR453_201802_M_20180228165619.gif"
-          alt=""
+          alt="map-image"
         />
       </div>
 
@@ -111,9 +144,28 @@ const Home = () => {
         <VehiclePanel
           setOpenVehiclePanel={setOpenVehiclePanel}
           setOpenPanel={setOpenPanel}
+          setOpenConfirmRidePanel={setOpenConfirmRidePanel}
         />
       </div>
-      <div className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"></div>
+      <div
+        ref={confirmRideRef}
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
+      >
+        <ConfirmRide
+          setOpenVehiclePanel={setOpenVehiclePanel}
+          setOpenConfirmRidePanel={setOpenConfirmRidePanel}
+          setOpenWaitingDriverPanel={setOpenWaitingDriverPanel}
+        />
+      </div>
+
+      <div
+        ref={waitingPanelRef}
+        className="fixed w-full  z-10 bottom-0  bg-white px-3 py-6 pt-12"
+      >
+        <WaitingDriver
+          setOpenWaitingDriverPanel={setOpenWaitingDriverPanel}  
+          setOpenConfirmRidePanel={setOpenConfirmRidePanel}/>
+      </div>
     </div>
   );
 };
