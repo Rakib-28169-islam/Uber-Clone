@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import ProtectUserPage from "./pages/ProtectUserPage";
 import ProtectDriverPage from "./pages/ProtectDriverPage";
 import DriverHome from "./pages/DriverHome";
+import DriverRiding from "./pages/DriverRiding";
 //import ProtectPage from "./pages/ProtectUserPage";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/user-login" element={<UserLogin />} />
         <Route path="/driver-signup" element={<DriverSignUp />} />
         <Route path="/driver-login" element={<DriverLogin />} />
+        <Route path="/driver-riding" element={<DriverRiding/>}/>
         <Route
           path="/user-home"
           element={

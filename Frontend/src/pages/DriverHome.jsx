@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom';
 import { useRef } from 'react';
 import DriverDashBoard from '../components/DriverDashBoard';
 import RidePopUp from '../components/RidePopUp';
+import ConfirmRidePopUp from '../components/ConfirmRidePopUp';
 
 const DriverHome = () => {
 
     //ref
     const ridePopupRef = useRef(null);
+    const confirmRidePopupRef = useRef(null);
+    
     
 
     //useState
     const [openRidePopup,setOpenRidePopup] = useState(true);
+    const [openConfirmRidePopup,setOpenConfirmRidePopup] = useState(false);
 
 
     //useEffect
@@ -30,6 +34,21 @@ const DriverHome = () => {
         }
 
     },[openRidePopup]);
+
+    useEffect(()=>{
+        if(openConfirmRidePopup){
+        
+            gsap.to(confirmRidePopupRef.current, {
+                transform: "translateY(0)",
+            }); 
+        }
+        else{
+            gsap.to(confirmRidePopupRef.current, {
+                transform: "translateY(100%)",
+            }); 
+        }
+
+    },[openConfirmRidePopup]);
     
 
     return (
@@ -50,10 +69,15 @@ const DriverHome = () => {
         <div ref={ridePopupRef}  className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
            <RidePopUp
            setOpenRidePopup={setOpenRidePopup}
+           setOpenConfirmRidePopup={setOpenConfirmRidePopup}
            />
         </div>
-        <div className='fixed w-full h-screen z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
-            
+        <div ref={confirmRidePopupRef}
+         className='fixed w-full h-screen z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
+            <ConfirmRidePopUp
+            setOpenRidePopup={setOpenRidePopup}
+            setOpenConfirmRidePopup={setOpenConfirmRidePopup}
+            />
         </div>
     </div>
     );
