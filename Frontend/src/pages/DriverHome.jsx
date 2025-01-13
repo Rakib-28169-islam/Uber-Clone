@@ -1,15 +1,42 @@
-import React from 'react';
-
+import React, { useState,useEffect } from 'react';
+import { gsap } from "gsap";
 import { Link } from 'react-router-dom';
 import { useRef } from 'react';
 import DriverDashBoard from '../components/DriverDashBoard';
+import RidePopUp from '../components/RidePopUp';
 
 const DriverHome = () => {
+
+    //ref
+    const ridePopupRef = useRef(null);
+    
+
+    //useState
+    const [openRidePopup,setOpenRidePopup] = useState(true);
+
+
+    //useEffect
+    useEffect(()=>{
+        if(openRidePopup){
+        
+            gsap.to(ridePopupRef.current, {
+                transform: "translateY(0)",
+            }); 
+        }
+        else{
+            gsap.to(ridePopupRef.current, {
+                transform: "translateY(100%)",
+            }); 
+        }
+
+    },[openRidePopup]);
+    
+
     return (
         <div className='h-screen'>
         <div className='fixed p-6 top-0 flex items-center justify-between w-screen'>
             <img className='w-16' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="" />
-            <Link to='/captain-home' className=' h-10 w-10 bg-white flex items-center justify-center rounded-full'>
+            <Link to='/driver-home' className=' h-10 w-10 bg-white flex items-center justify-center rounded-full'>
                 <i className="text-lg font-medium ri-logout-box-r-line"></i>
             </Link>
         </div>
@@ -20,8 +47,10 @@ const DriverHome = () => {
         <div className='h-2/5 p-6'>
             <DriverDashBoard/>
         </div>
-        <div  className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
-           
+        <div ref={ridePopupRef}  className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
+           <RidePopUp
+           setOpenRidePopup={setOpenRidePopup}
+           />
         </div>
         <div className='fixed w-full h-screen z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
             
