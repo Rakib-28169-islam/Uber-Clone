@@ -25,6 +25,7 @@ const Home = () => {
   const [openVehiclePanel, setOpenVehiclePanel] = useState(false);
   const [openConfirmRidePanel, setOpenConfirmRidePanel] = useState(false);
   const [openWaitingDriverPanel, setOpenWaitingDriverPanel] = useState(false);
+  const [fare,setFare] = useState({});
 
   const pickupSuggestionsHandler = async (e) => {
     const value = e.target.value;
@@ -98,6 +99,30 @@ const Home = () => {
     });
   }, [openWaitingDriverPanel]);
 
+  const findTrip = async ()=>{
+
+    try{
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/ride/get-fare`,{
+        params:{
+          origin:pickup,
+          destination:drop
+        },
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      })
+      const fare= response.data;
+      console.log(fare);
+      setFare(fare);
+
+
+    }catch(err)
+    {
+      console.log(err.message," Home line 108");
+    }
+
+  }
+
   return (
     <div className="h-screen relative overflow-hidden">
       <img
@@ -126,7 +151,7 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full">
-        <div className="h-[23%] p-6 bg-white relative">
+        <div className="h-[30%] p-6 bg-white relative">
           <h5
             className={`absolute right-9 text-3xl font-bold ${
               openPanel ? "" : "hidden"
@@ -140,7 +165,7 @@ const Home = () => {
           <h4 className="text-2xl font-semibold">Find a trip</h4>
 
           <form onSubmit={submitHandler}>
-            <div className="line absolute h-16 w-1 top-[45%] left-10 bg-gray-700 rounded-full"></div>
+            <div className="line absolute h-16 w-1 top-[35%] left-10 bg-gray-700 rounded-full"></div>
             <input
               onClick={() => {
                 if (!openPanel) setOpenPanel(true);
@@ -168,6 +193,7 @@ const Home = () => {
             onClick={() => {
               if (!openPanel) setOpenPanel(true);
               if (!openVehiclePanel) setOpenVehiclePanel(true);
+              findTrip();
             }}
             className="bg-black text-white px-4 py-2 rounded-lg mt-3 w-full"
           >
@@ -192,6 +218,7 @@ const Home = () => {
         className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
       >
         <VehiclePanel
+          fare={fare}
           setOpenVehiclePanel={setOpenVehiclePanel}
           setOpenPanel={setOpenPanel}
           setOpenConfirmRidePanel={setOpenConfirmRidePanel}
