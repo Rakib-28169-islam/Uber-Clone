@@ -11,11 +11,11 @@ module.exports.createRide = async (req,res,next) =>{
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()});
     }
-    const { pickup, destination, vehicleType } = req.body;
+    const { pickup, destination, vehicleType,price } = req.body;
     const user = req.user._id;
-    console.log(user,pickup,destination,vehicleType);
+    console.log(user,pickup,destination,vehicleType ,price);
     try{
-        const ride = await  rideService.createRide({user,pickup,destination,vehicleType});
+        const ride = await  rideService.createRide({user,pickup,destination,vehicleType,price});
         res.status(201).json(ride);
 
     }catch(err){

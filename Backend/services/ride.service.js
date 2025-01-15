@@ -73,24 +73,25 @@ module.exports.createRide = async ({
   pickup,
   destination,
   vehicleType,
+  price,
 }) => {
-  if (!user || !pickup || !destination || !vehicleType) {
+  if (!user || !pickup || !destination || !vehicleType||!price) {
     throw new Error("Invalid input");
   }
-  const fare = await getFair(pickup, destination);
+  //const fare = await getFair(pickup, destination);
 
   try {
     const ride = rideModel.create({
       user,
       pickup,
       destination,
-      fare: fare[vehicleType],
+      fare: price,
       otp: getOtp(6),
     });
     //console.log(ride);
     return ride;
   } catch (err) {
-    console.error(err, "on createRide");
+    console.error(err, "on createRide line 94");
     throw err;
   }
 };
