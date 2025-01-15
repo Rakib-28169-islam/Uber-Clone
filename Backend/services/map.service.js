@@ -44,7 +44,7 @@ module.exports.getDistanceAndTime = async (origin,destination) =>{
     }
     catch(err)
     {
-        console.error(err);
+        console.error(err ," map service line 47");
 
     }
  

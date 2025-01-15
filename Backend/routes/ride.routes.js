@@ -11,6 +11,12 @@ router.post('/create',
     body('vehicleType').isString().isIn([ 'auto', 'car', 'moto' ]).withMessage('Invalid vehicle type'),
     rideController.createRide
 )
+router.get('/get-fare',
+    authMiddleware.authUser,
+    query('origin').isString().isLength({min:3}).withMessage('pickup(Origin) field must be greater or equal 3  Invalid address'),
+    query('destination').isString().isLength({min:3}).withMessage('Invalid destination address ride routes line 17'),
+    rideController.getFare
+)
 
 module.exports = router;
 
