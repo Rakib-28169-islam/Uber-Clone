@@ -2,9 +2,9 @@ import React, { createContext, useState } from 'react';
 
 export const DriverDataContext = createContext();
 const DriverContext = ({children}) => {
-    const  [ driver, setDriver ] = useState(null);
+    const  [ driverData, setDriverData ] = useState({});
     const [ isLoading, setIsLoading ] = useState(false);
-    const [ error, setError ] = useState(null);
+    const [ error, setError ] = useState();
 
     const updateDriver = (captainData) => {
         setDriver(captainData);
@@ -21,7 +21,7 @@ const DriverContext = ({children}) => {
     // };
     return (
         <div>
-            <DriverDataContext.Provider value={{setDriver,driver}}>
+            <DriverDataContext.Provider value={{setDriverData,driverData}}>
                 {children}
             </DriverDataContext.Provider>
 

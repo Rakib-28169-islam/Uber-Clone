@@ -9,7 +9,7 @@ import { DriverDataContext } from "../context/DriverContext";
 
 const ProtectDriverPage = ({ children }) => {
   const navigate = useNavigate();
-  const { driver,setDriver } = useContext(DriverDataContext);
+  const { driverData,setDriverData } = useContext(DriverDataContext);
   const token = localStorage.getItem("token");
  
 
@@ -23,11 +23,11 @@ const ProtectDriverPage = ({ children }) => {
           },
         })
         .then((res) => {
-          setDriver(res.data.user);
+          setDriverData(res.data);
           navigate("/driver-home");
         })
         .catch((err) => {
-          //console.log(err);
+          console.log(err);
           navigate("/driver-login");
         });
     };

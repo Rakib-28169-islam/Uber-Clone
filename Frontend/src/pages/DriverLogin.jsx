@@ -7,7 +7,7 @@ const DriverLogin = () => {
   const navigate = useNavigate();
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
-    const {driver,setDriver} = useContext(DriverDataContext);
+    const {driverData,setDriverData} = useContext(DriverDataContext);
     
 
     const handleSubmit = async(e)=>{
@@ -21,8 +21,10 @@ const DriverLogin = () => {
         await axios.post(`${import.meta.env.VITE_BASE_URL}/drivers/login`,newDriver)
         .then((res)=>{
           if(res.status === 200){
-            setDriver(res.data.driver);
-            console.log(res.data);
+             setDriverData(res.data.driver);
+             console.log("Driver from API:", res.data.driver);
+             console.log("Driver from context:", driverData);
+             console.log(driverData);
             localStorage.setItem("token",res.data.token);
             navigate("/driver-home");
 

@@ -20,6 +20,10 @@ const VehiclePanel = (props) => {
             }}><i className="text-3xl text-gray-800 ri-arrow-down-wide-line"></i></h5>
             <h3 className='text-2xl font-semibold mb-5'>Choose a Vehicle</h3>
             <div onClick={() => {
+               props.setClickedVehicle({
+                vehicle:'car',
+                price:car//fare.car = tk
+               })
                 suggestionClickHandler()
                 
             }} className='flex border-2 active:border-black  mb-2 rounded-xl w-full p-3  items-center justify-between'>
@@ -32,6 +36,11 @@ const VehiclePanel = (props) => {
                 <h2 className='text-lg font-semibold'><span className="font-bold text-3xl ">৳</span>{car}</h2>
             </div>
             <div onClick={() => {
+                props.setClickedVehicle({
+                    vehicle:'moto',
+                    price:moto//fare.moto = tk
+                })
+              
                 suggestionClickHandler()
               
             }} className='flex border-2 active:border-black mb-2 rounded-xl w-full p-3  items-center justify-between'>
@@ -44,6 +53,11 @@ const VehiclePanel = (props) => {
                 <h2 className='text-lg font-semibold'><span className="font-bold text-3xl ">৳</span>{moto}</h2>
             </div>
             <div onClick={() => {
+                props.setClickedVehicle({
+                    vehicle:'auto',
+                    price:auto//fare.auto = tk
+                })
+                
                 suggestionClickHandler()
                
             }} className='flex border-2 active:border-black mb-2 rounded-xl w-full p-3  items-center justify-between'>

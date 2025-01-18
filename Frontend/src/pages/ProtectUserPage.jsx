@@ -20,7 +20,7 @@ const ProtectUserPage = ({ children }) => {
           },
         })
         .then((res) => {
-          setUser(res.data.user);
+          setUser(res.data);
           navigate("/user-home");
         })
         .catch((err) => {
