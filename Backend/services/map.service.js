@@ -1,4 +1,5 @@
 const axios = require('axios');
+const driverModel = require('../models/driver.model');
 //const captainModel = require('../models/captain.model');
 
 module.exports.getAddressCoordinate = async (address) => {
@@ -64,4 +65,21 @@ module.exports.getSuggestions = async (input) => {
         
 
     }
+}
+
+module.exports.getDriversInTheRadius = async (ltd, lng, radius) => {
+
+    // radius in km
+
+    const drivers = await driverModel.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [ [ lng, ltd ], radius / 6371 ]
+            }
+        }
+    });
+
+    return drivers;
+
+
 }

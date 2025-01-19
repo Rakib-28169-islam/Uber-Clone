@@ -26,6 +26,10 @@ function installSocket(server) {
       }
     });
 
+    socket.on("new-ride",data=>{
+        console.log(data,"new ride in socket");
+    })
+
     socket.on("leave", async (data) => {
       const { dataId, dataType } = data;
       console.log(`${dataType} ${dataId} disconnected`);
@@ -63,10 +67,10 @@ function installSocket(server) {
   });
 }
 
-function sendNotificationMessage(socketId, data) {
+function sendNotificationMessage(socketId, obj) {
   console.log(socketId, data, "sendNotificationMessage line 48 socket.js");
   if (io) {
-    io.to(socketId).emit(data.event, data.message);
+    io.to(socketId).emit(obj.event, obj.data);
   } else {
     console.log("socket not initialized line 56 socket.js");
   }

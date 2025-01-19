@@ -15,6 +15,10 @@ module.exports.getFair = async (pickup, destination) => {
 
     const durationText = distanceTime.duration.text;
     const distanceText = distanceTime.distance.text;
+
+    const start_location =distanceTime.start_location;
+    const end_location = distanceTime.end_location;
+
     const baseFare = {
       auto: 30,
       car: 50,
@@ -50,7 +54,9 @@ module.exports.getFair = async (pickup, destination) => {
           perMinuteRate.moto * (duration / 60)
       ),
       duration: durationText,
-      distance: distanceText,
+      distance: distanceText,       //ltd lng
+      start_location:start_location,//lat lng 
+      end_location:end_location
     };
 
     return fare;
