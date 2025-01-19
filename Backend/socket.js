@@ -1,6 +1,7 @@
 const socketIo = require("socket.io");
 const userModel = require("../Backend/models/user.model");
 const driverModel = require("../Backend/models/driver.model");
+const { disconnect } = require("mongoose");
 let io;
 
 function installSocket(server) {
@@ -25,13 +26,39 @@ function installSocket(server) {
       }
     });
 
-    socket.on("disconnect", async (data) => {
+    socket.on("leave", async (data) => {
       const { dataId, dataType } = data;
+      console.log(`${dataType} ${dataId} disconnected`);
       if (dataType === "user") {
         await userModel.findByIdAndUpdate(dataId, { socketId: "" });
       } else if (dataType === "driver") {
-        await driverModel.findByIdAndUpdate(dataId, { socketId: "" });
+        await driverModel.findByIdAndUpdate(dataId, { 
+            socketId: "",
+            location:{
+                ltd:0,
+                lng:0
+            }
+        });
+
       }
+    });
+    socket.on("update-location-driver", async (data) => {
+      const { driverId, location } = data;
+      if (!location || !location.ltd || !location.lng) {
+        socket.emit("error", { message: "Invalid location data" });
+      }
+
+      //console.log(location)
+      await driverModel.findByIdAndUpdate(driverId, {
+        location: {
+          ltd: location.ltd,
+          lng: location.lng,
+        },
+      });
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected", socket.id);
     });
   });
 }
