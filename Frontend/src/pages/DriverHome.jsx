@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import  { useState, useEffect, useContext } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
@@ -12,10 +12,28 @@ import { SocketClientContext } from "../context/SocketContext";
 const DriverHome = () => {
   const { socket } = useContext(SocketClientContext);
   const { driverData } = useContext(DriverDataContext);
-
   useEffect(() => {
-    socket.emit("join", { dataId: driverData._id, dataType: "driver" });
-  }, [driverData]);
+    socket.emit('join', {dataId:driverData._id,dataType:"driver"})
+    const updateLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+
+                socket.emit('update-location-driver', {
+                    driverId: driverData._id,
+                    location: {
+                        ltd: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }
+                })
+            })
+        }
+    }
+
+    const locationInterval = setInterval(updateLocation, 10000)
+    updateLocation()
+
+    // return () => clearInterval(locationInterval)
+}, [driverData])
 
   //ref
   const ridePopupRef = useRef(null);
