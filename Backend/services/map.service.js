@@ -71,13 +71,15 @@ module.exports.getDriversInTheRadius = async (ltd, lng, radius) => {
 
     // radius in km
 
-    const drivers = await driverModel.find({
-        location: {
-            $geoWithin: {
-                $centerSphere: [ [ lng, ltd ], radius / 6371 ]
+    const drivers = await driverModel.find(
+        {
+            location: {
+                $geoWithin: {
+                    $centerSphere: [ [ lng, ltd ], radius / 6371 ]
+                }
             }
         }
-    });
+    );
 
     return drivers;
 

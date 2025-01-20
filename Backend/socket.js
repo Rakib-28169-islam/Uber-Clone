@@ -26,9 +26,9 @@ function installSocket(server) {
       }
     });
 
-    socket.on("new-ride",data=>{
-        console.log(data,"new ride in socket");
-    })
+    socket.on("new-ride", (data) => {
+      console.log(data, "new ride in socket");
+    });
 
     socket.on("leave", async (data) => {
       const { dataId, dataType } = data;
@@ -36,14 +36,13 @@ function installSocket(server) {
       if (dataType === "user") {
         await userModel.findByIdAndUpdate(dataId, { socketId: "" });
       } else if (dataType === "driver") {
-        await driverModel.findByIdAndUpdate(dataId, { 
-            socketId: "",
-            location:{
-                ltd:0,
-                lng:0
-            }
+        await driverModel.findByIdAndUpdate(dataId, {
+          socketId: "",
+          location: {
+            ltd: 0,
+            lng: 0,
+          },
         });
-
       }
     });
     socket.on("update-location-driver", async (data) => {
@@ -53,12 +52,16 @@ function installSocket(server) {
       }
 
       //console.log(location)
-      await driverModel.findByIdAndUpdate(driverId, {
-        location: {
-          ltd: location.ltd,
-          lng: location.lng,
+      await driverModel.findByIdAndUpdate(
+        driverId,
+        {
+          location: {
+            type: "Point",
+            coordinates: [location.lng, location.ltd], // Transform to GeoJSON format
+          },
         },
-      });
+        { new: true } // Return the updated document
+      );
     });
 
     socket.on("disconnect", () => {
