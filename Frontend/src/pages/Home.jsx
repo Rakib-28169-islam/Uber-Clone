@@ -28,6 +28,8 @@ const Home = () => {
   const [openConfirmRidePanel, setOpenConfirmRidePanel] = useState(false);
   const [openWaitingDriverPanel, setOpenWaitingDriverPanel] = useState(false);
   const [fare, setFare] = useState({});
+  const [start_location,setStart_location] = useState({});
+  const [end_location,setEnd_location] = useState({});
   const [clickedVehicle, setClickedVehicle] = useState({});
 
 
@@ -130,6 +132,9 @@ const Home = () => {
       const fare = response.data;
       console.log(fare);
       setFare(fare);
+      setStart_location(fare.start_location);
+      setEnd_location(fare.end_location);
+
     } catch (err) {
       console.log(err.message, " Home line 108");
     }
@@ -143,7 +148,9 @@ const Home = () => {
           pickup,
           destination:drop,
           vehicleType :clickedVehicle.vehicle,
-          price: Number(clickedVehicle.price)
+          price: Number(clickedVehicle.price),
+          start_location: start_location,
+          end_location:end_location,
         },
         {
           headers: {

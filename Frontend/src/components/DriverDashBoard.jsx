@@ -4,8 +4,8 @@ import { DriverDataContext } from '../context/DriverContext';
 const DriverDashBoard = () => {
 
     const {driverData} =  useContext(DriverDataContext);
-      const  {fName,lName} = driverData.fullName
-      console.log(fName,lName)
+    //   const  {fName,lName} = driverData.fullName
+    //   console.log(fName,lName)
     
 
     return (
@@ -13,7 +13,7 @@ const DriverDashBoard = () => {
         <div className='flex items-center justify-between'>
             <div className='flex items-center justify-start gap-3'>
                 <img className='h-10 w-10 rounded-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdlMd7stpWUCmjpfRjUsQ72xSWikidbgaI1w&s" alt="" />
-                <h4 className='text-lg font-medium capitalize'>{fName} {lName}</h4>
+                <h4 className='text-lg font-medium capitalize'>{driverData?.fullName?.fName+" "+driverData?.fullName?.lName}</h4>
             </div>
             <div>
                 <h4 className='text-xl font-semibold'>₹295.20</h4>
