@@ -70,14 +70,14 @@ const driverInRadius = async(ride,pickupLocation)=>{
       pickupLocation.lng,
       3
     );
-    // const rideWithUser = await rideModel.findOne({ _id: ride._id }).populate('user');
+     const rideWithUser = await rideModel.findOne({ _id: ride._id }).populate('user');
 
-    // driversInRadius.map((driver) => {
-    //   sendNotificationMessage(driver.socketId, {
-    //     event: "new-ride",
-    //     data: rideWithUser,
-    //   });
-    // });
+    driversInRadius.map((driver) => {
+      sendNotificationMessage(driver.socketId, {
+        event: "new-ride",
+        data: rideWithUser,
+      });
+    });
      console.log(driversInRadius);
 
 }

@@ -71,7 +71,7 @@ function installSocket(server) {
 }
 
 function sendNotificationMessage(socketId, obj) {
-  console.log(socketId, data, "sendNotificationMessage line 48 socket.js");
+  console.log(socketId, obj, "sendNotificationMessage line 48 socket.js");
   if (io) {
     io.to(socketId).emit(obj.event, obj.data);
   } else {
