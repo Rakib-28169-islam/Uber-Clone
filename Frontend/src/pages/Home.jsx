@@ -28,20 +28,18 @@ const Home = () => {
   const [openConfirmRidePanel, setOpenConfirmRidePanel] = useState(false);
   const [openWaitingDriverPanel, setOpenWaitingDriverPanel] = useState(false);
   const [fare, setFare] = useState({});
-  const [start_location,setStart_location] = useState({});
-  const [end_location,setEnd_location] = useState({});
+  const [start_location, setStart_location] = useState({});
+  const [end_location, setEnd_location] = useState({});
   const [clickedVehicle, setClickedVehicle] = useState({});
-
+  const [waitingRideData, setWaitingRideData] = useState({});
 
   //socket
-  const {socket} = useContext(SocketClientContext);
-  const {user} = useContext(UserDataContext);
+  const { socket } = useContext(SocketClientContext);
+  const { user } = useContext(UserDataContext);
 
-  useEffect(()=>{
-    socket.emit("join",{dataId:user._id,dataType:"user"});
-
-  },[user])
-  
+  useEffect(() => {
+    socket.emit("join", { dataId: user._id, dataType: "user" });
+  }, [user]);
 
   const pickupSuggestionsHandler = async (e) => {
     const value = e.target.value;
@@ -134,7 +132,6 @@ const Home = () => {
       setFare(fare);
       setStart_location(fare.start_location);
       setEnd_location(fare.end_location);
-
     } catch (err) {
       console.log(err.message, " Home line 108");
     }
@@ -146,11 +143,11 @@ const Home = () => {
         `${import.meta.env.VITE_BASE_URL}/ride/create`,
         {
           pickup,
-          destination:drop,
-          vehicleType :clickedVehicle.vehicle,
+          destination: drop,
+          vehicleType: clickedVehicle.vehicle,
           price: Number(clickedVehicle.price),
           start_location: start_location,
-          end_location:end_location,
+          end_location: end_location,
         },
         {
           headers: {
@@ -159,15 +156,21 @@ const Home = () => {
         }
       );
       console.log(response.data);
-
+      setWaitingRideData(response.data);
     } catch (err) {
       console.log(err.message, " Home line 134");
     }
   };
 
+  useEffect(() => {
+    if (waitingRideData) {
+      console.log(waitingRideData);
+    }
+  }, [waitingRideData]);
+
+
   return (
     <div className="h-screen relative overflow-hidden">
-  
       <img
         className="w-16 absolute left-5 top-5"
         src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
@@ -242,7 +245,6 @@ const Home = () => {
           >
             Find Trip
           </button>
-          
         </div>
 
         <div ref={suggestionsPanel} className="h-0 bg-white">
@@ -276,8 +278,7 @@ const Home = () => {
         className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-3"
       >
         <ConfirmRide
-         
-         createRide={createRide}
+          createRide={createRide}
           pickup={pickup}
           drop={drop}
           clickedVehicle={clickedVehicle}
@@ -293,6 +294,8 @@ const Home = () => {
         className="fixed w-full border z-10 bottom-0 bg-white px-3 py-6 pt-20"
       >
         <WaitingDriver
+
+          waitingRideData={waitingRideData}
           setOpenWaitingDriverPanel={setOpenWaitingDriverPanel}
           setOpenConfirmRidePanel={setOpenConfirmRidePanel}
         />

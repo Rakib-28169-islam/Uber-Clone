@@ -16,7 +16,7 @@ const WaitingDriver = (props) => {
             <h2 className='text-lg font-medium capitalize'>{'Toyota-CorolaX'}</h2>
             <h4 className='text-xl font-semibold -mt-1 -mb-1'>{'XXXX-0001'}</h4>
             <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
-            <h1 className='text-lg font-semibold'>  {'0057'} </h1>
+            <h1 className='text-lg font-semibold'> OTP  {props.waitingRideData?.otp} </h1>
           </div>
         </div>
   
@@ -26,20 +26,20 @@ const WaitingDriver = (props) => {
               <i className="ri-map-pin-user-fill"></i>
               <div>
                 <h3 className='text-lg font-medium'>562/11-A</h3>
-                <p className='text-sm -mt-1 text-gray-600'>{'Jhikargacha'}</p>
+                <p className='text-sm -mt-1 text-gray-600'>{props.waitingRideData?.pickup}</p>
               </div>
             </div>
             <div className='flex items-center gap-5 p-3 border-b-2'>
               <i className="text-lg ri-map-pin-2-fill"></i>
               <div>
                 <h3 className='text-lg font-medium'>562/11-A</h3>
-                <p className='text-sm -mt-1 text-gray-600'>{'Dhaka'}</p>
+                <p className='text-sm -mt-1 text-gray-600'>{props.waitingRideData?.destination}</p>
               </div>
             </div>
             <div className='flex items-center gap-5 p-3'>
               <i className="ri-currency-line"></i>
               <div>
-                <h3 className='text-lg font-medium'><span className="font-bold text-3xl ">৳</span>{500} </h3>
+                <h3 className='text-lg font-medium'><span className="font-bold text-3xl ">৳</span>{props.waitingRideData?.fare} </h3>
                 <p className='text-sm -mt-1 text-gray-600'>Cash Cash</p>
               </div>
             </div>

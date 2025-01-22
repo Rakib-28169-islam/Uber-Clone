@@ -8,7 +8,7 @@ import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
 import { DriverDataContext } from "../context/DriverContext";
 import { SocketClientContext } from "../context/SocketContext";
 //import { DriverDataContext } from '../context/DriverContext';
-
+import axios from "axios";
 const DriverHome = () => {
   //ref
   const ridePopupRef = useRef(null);
@@ -46,12 +46,29 @@ const DriverHome = () => {
     // return () => clearInterval(locationInterval)
   }, [driverData]);
 
+  const driverConfirmed = async () => {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/ride/confirm`,
+      {
+        rideId: rideData._id,
+        driverId: driverData._id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    
+  }
+
   //socket
   socket.on("new-ride", async (data) => {
     setRideData(data);
     console.log("new-ride socket on driver home");
 
-     setOpenRidePopup(true);
+    setOpenRidePopup(true);
 
     //console.log(rideData);
   });
