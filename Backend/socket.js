@@ -1,7 +1,7 @@
 const socketIo = require("socket.io");
 const userModel = require("../Backend/models/user.model");
 const driverModel = require("../Backend/models/driver.model");
-const { disconnect } = require("mongoose");
+//const { disconnect } = require("mongoose");
 let io;
 
 function installSocket(server) {

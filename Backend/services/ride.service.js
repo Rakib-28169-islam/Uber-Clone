@@ -101,3 +101,22 @@ module.exports.createRide = async ({
     throw err;
   }
 };
+
+module.exports.confirmRide = async (rideId,driver)=>{
+
+  if(!rideId){
+    throw new Error("Invalid ride id");
+  }
+  await rideModel.findOneAndUpdate({_id:rideId},{
+    status:"accepted",
+    driver:driver._id
+  })
+
+  const ride = await rideModel.findOne({_id:rideId}).populate('user').populate('driver').select('+otp');
+
+  if(!ride){
+    throw new Error("Ride not found");
+  }
+
+  return ride;
+}
