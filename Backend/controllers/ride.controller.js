@@ -96,8 +96,9 @@ module.exports.confirmRide = async (req, res, next) => {
   try{
     const driver = req.driver;
     const ride = await rideService.confirmRide(rideId,driver);
-    console.log(ride);
+    //console.log(ride);
     res.status(200).json(ride);
+    //console.log("line 101 ride control ",ride.user.socketId,'ride-confirmed',ride)
     sendNotificationMessage(ride.user.socketId,{
       event:'ride-confirmed',
       data:ride
